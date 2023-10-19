@@ -1,0 +1,14 @@
+.content{
+    display: flex;
+    align-items: center;
+    >div{
+        &:nth-child(1),
+        &:nth-child(2){
+            width: 100%;
+            margin: 0 !important;
+        }
+        &:last-of-type{
+            margin-left: 15px !important;
+        }
+    }
+}
