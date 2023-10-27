@@ -23,7 +23,7 @@ export default function page({ params, searchParams }) {
       setSearchText(s)
     })()
   }, [searchParams])
-
+  console.log(s);
   return (
     <>
       <BasicLayout relative isOpenSearch>
