@@ -32,15 +32,15 @@ export function Menu({ isOpenSearch }) {
             }
         })()
     }, [])
-    const url= searchParams.get("s")
     useEffect(() => {
+        const url= searchParams.get("s")
         setSearchText(url || '')
     }, [])
     
 
     const onSearch=(text)=>{
         setSearchText(text)
-        router.replace(`/search?s=${text}`)
+        router.push(`/search?s=${text}`)
     }
 
     return (
