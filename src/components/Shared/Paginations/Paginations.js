@@ -3,7 +3,6 @@ import styles from './Paginations.module.scss'
 import { Pagination as PaginatiionSU } from 'semantic-ui-react'
 
 export function Paginations({ currentPage, slug, totalPages }) {
-console.log(slug);
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()

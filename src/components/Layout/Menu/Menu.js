@@ -1,24 +1,20 @@
 import { useEffect, useState } from 'react'
 import styles from './Menu.module.scss'
-import { Platform } from '@/api'
+import { Platform, Game } from '@/api'
 import Link from 'next/link'
 import { Icon, Image, Input } from 'semantic-ui-react'
 import classNames from 'classnames';
 import { ENV } from '@/utils'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { SearchComp } from './SearchComp'
 
+const gameCtrl = new Game();
 const platformCtrl = new Platform
 
 export function Menu({ isOpenSearch }) {
-    const router = useRouter()
-    const pathname = usePathname()
-    const searchParams = useSearchParams()
-
     const [platforms, setPlatforms] = useState([])
     const [showSearch, setShowSearch] = useState(isOpenSearch)
-    const [searchText, setSearchText] = useState("")
-
-
+    const [textSearch, setTextSearch] = useState('')
+    const [games, setGames] = useState('')
 
     const openCloseSearch = () => setShowSearch((prevState) => !prevState)
 
@@ -32,22 +28,24 @@ export function Menu({ isOpenSearch }) {
             }
         })()
     }, [])
-    useEffect(() => {
-        const url= searchParams.get("s")
-        setSearchText(url || '')
-    }, [])
-    
 
-    const onSearch=(text)=>{
-        setSearchText(text)
-        router.push(`/search?s=${text}`)
-    }
+    useEffect(() => {
+        (async () => {
+            try {
+                const game = await gameCtrl.searchGame(textSearch);
+                setGames(game.data)
+            } catch (error) {
+                console.error(error);
+            }
+        })()
+    }, [])
+
 
     return (
         <div className={styles.platforms}>
             {platforms.map(platform => (
                 <Link key={platform.id} href={`/games/${platform.attributes.slug}`} >
-                    <Image src={`${ENV.IMG}${platform.attributes.icon.data.attributes.url}`} />
+                    <Image src={`${ENV.IMG}${platform.attributes.icon.data.attributes.url}`} style={{ filter: 'brightness(0) invert(1)' }} />
                     {platform.attributes.title}
                 </Link>
             ))}
@@ -60,8 +58,9 @@ export function Menu({ isOpenSearch }) {
                 [styles.active]: showSearch,
             })}
             >
-                <Input id="search-games" placeholder="Buscador" className={styles.input} focus={true} value={searchText} onChange={(_, data)=> onSearch(data.value)} />
-                <Icon name='close' className={styles.closeInput} onClick={openCloseSearch} />
+                {/* search */}
+                <SearchComp games={games} textSearch={textSearch} setTextSearch={setTextSearch} />
+                <Icon name='angle right' className={styles.closeInput} onClick={openCloseSearch} />
             </div>
         </div>
     )

@@ -56,7 +56,7 @@ export class Game {
         }
     }
 
-    async searchGame(text, page) {
+    async searchGame(text, page=1) {
         try {
             const filters = `filters[title][$contains]=${text}`
             const pagination = `pagination[page]=${page}&pagination[pageSize]=30`
