@@ -1,6 +1,6 @@
 export const ENV = {
-    SERVER_HOST: "https://ecommerce-strapi-production-cf54.up.railway.app",
-    API_URL: "https://ecommerce-strapi-production-cf54.up.railway.app/api",
+    SERVER_HOST: "http://localhost:8082",
+    API_URL: "http://localhost:8082/api",
     ENDPOINTS: {
         AUTH: {
             REGISTER: 'auth/local/register',
@@ -18,5 +18,5 @@ export const ENV = {
     TOKEN: "token",
     CART: "cart",
     STRIPE_TOKEN: 'pk_test_51Nv8glFLxCEFnpykFvcT6bhNq8UOiCKhEDrtS9Co4gJ5AebfvbygrES9EU17HAuCabxdo2n2Lmd3OdDGHvzUVeYc00tJXxCOkq',
-    IMG: "https://ecommerce-strapi-production-cf54.up.railway.app"
+    IMG: "http://localhost:8082"
 }
